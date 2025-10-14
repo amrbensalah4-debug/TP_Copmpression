@@ -3,17 +3,19 @@
 
 #include <stdint.h>
 
-
-void occurrence(uint8_t *chaine, uint32_t tab[256]);
-
-typedef struct noeud {
+struct noeud {
     uint8_t c;
     uint32_t occurrence;
     uint32_t code;
     uint32_t tailleCode;
     struct noeud *gauche;
     struct noeud *droite;
-} noeud_t;
+};
+
+
+void occurrence(uint8_t *chaine, uint32_t tab[256]);
+uint32_t creerFeuille(struct noeud* arbre[256], uint32_t tab[256]);
+
 
 
 #endif
