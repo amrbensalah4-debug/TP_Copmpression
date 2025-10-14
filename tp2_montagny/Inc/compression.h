@@ -17,6 +17,7 @@ void occurrence(uint8_t *chaine, uint32_t tab[256]);
 uint32_t creerFeuille(struct noeud* arbre[256], uint32_t tab[256]);
 void afficherTabArbreHuffman(struct noeud* arbre[256], uint32_t taille);
 void triArbre(struct noeud* arbre[256] , uint32_t taille);
+struct noeud* creerArbreHuffman(struct noeud* arbre[256], uint32_t taille);
 
 
 

@@ -65,3 +65,35 @@ void triArbre(struct noeud* arbre[256] , uint32_t taille){
 	}
 }
 
+
+struct noeud* creerArbreHuffman(struct noeud* arbre[256], uint32_t taille)
+{
+    while (taille > 1) {
+        triArbre(arbre, taille);
+
+        struct noeud* n1 = arbre[0];
+        struct noeud* n2 = arbre[1];
+
+        struct noeud* nouveau = malloc(sizeof(struct noeud));
+        nouveau->c = '!';  // marqueur d’un nœud interne
+        nouveau->occurrence = n1->occurrence + n2->occurrence;
+        nouveau->code = 0;
+        nouveau->tailleCode = 0;
+        nouveau->gauche = n1;
+        nouveau->droite = n2;
+
+        // on remplace le premier par le nouveau noeud
+        arbre[0] = nouveau;
+
+        // on décale le reste vers la gauche pour supprimer le 2e
+        for (uint32_t i = 1; i < taille - 1; i++) {
+            arbre[i] = arbre[i + 1];
+        }
+
+        taille--; // on a fusionné 2 noeuds -> 1 seul remplace
+    }
+
+    return arbre[0]; // racine
+}
+
+
