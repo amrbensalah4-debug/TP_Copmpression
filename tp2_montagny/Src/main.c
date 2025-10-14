@@ -18,11 +18,20 @@ int main(void)
     USART2_Init();
     SYSTICK_Init();
 
-    uint8_t texte[] = "Une banane";
+    uint8_t texte[] = "aaaabbbcc";
     uint32_t tab[256];
     struct noeud* arbre[256];
 
     occurrence(texte, tab);
+	uint32_t taille = creerFeuille(arbre, tab);
+    //afficherTabArbreHuffman(arbre, taille );
+
+    printf("\r\n Test triArbre \r\n");
+    triArbre(arbre, taille);
+    for (uint32_t i = 0; i < taille; i++) {
+        printf("Feuille %lu : '%c' -> %lu occurrences\r\n",
+               i, arbre[i]->c, arbre[i]->occurrence);
+    }
 
     /*printf("---- Test fonction occurrence ----\r\n");
     for (int c = 0; c < 256; c++) {
@@ -31,12 +40,6 @@ int main(void)
         }
     }
     */
-    printf("\r\n---- Test fonction creerFeuille ----\r\n");
-    uint32_t nbFeuilles = creerFeuille(arbre, tab);
-    for (uint32_t i = 0; i < nbFeuilles; i++) {
-                printf("Feuille %lu : '%c' -> %lu occurrences\r\n",
-                       i, arbre[i]->c, arbre[i]->occurrence);
-        }
 
 
     while (1) {
@@ -45,3 +48,5 @@ int main(void)
         //printf("Hello \r\n");
     }
 }
+
+
