@@ -173,4 +173,45 @@ struct noeud* getAdress(struct noeud* ptrNoeud, uint8_t caractere)
 }
 
 
+void compresserTexte(struct noeud* racine, uint8_t* texte, uint8_t* texteCompresse)
+{
+    uint32_t bitIndex = 0; // position du bit qu’on va écrire
+
+    for (uint32_t i = 0; texte[i] != '\0'; i++) {
+        // Cherche le nœud correspondant au caractère
+        struct noeud* n = getAdress(racine, texte[i]);
+        //if (n == NULL) continue; // sécurité
+
+        // Parcourt tous les bits du code du caractère
+        for (int j = n->tailleCode - 1; j >= 0; j--) {
+            uint8_t bit = (n->code >> j) & 1; // extrait le bit courant
+
+            // Calcule où écrire ce bit
+            uint32_t byteIndex = bitIndex / 8; // quel octet
+            uint8_t bitPos = 7 - (bitIndex % 8); // position dans cet octet
+
+            if (bit == 1)
+                texteCompresse[byteIndex] |= (1 << bitPos); // met le bit à 1
+            else
+                texteCompresse[byteIndex] &= ~(1 << bitPos); // met le bit à 0
+
+            bitIndex++;
+        }
+    }
+
+    printf("\r\nTexte compressé terminé (%lu bits)\r\n", bitIndex);
+
+    // --- AFFICHAGE DU RESULTAT EN BINAIRE ---
+    printf("\r\nTexte compressé (%lu bits) : ", bitIndex);
+
+    for (uint32_t i = 0; i < bitIndex; i++) {
+        uint32_t byteIndex = i / 8;
+        uint8_t bitPos = 7 - (i % 8);
+        printf("%d", (texteCompresse[byteIndex] >> bitPos) & 1);
+    }
+
+    printf("\r\n");
+}
+
+
 

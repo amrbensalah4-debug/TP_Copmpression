@@ -21,6 +21,7 @@ int main(void)
 
     uint8_t texte[] = "aaaabbbccd";
     uint32_t tab[256];
+    uint8_t texteCompresse[256] = {0};
 
     occurrence(texte, tab);
     //afficheOccurence(texte,tab);
@@ -43,6 +44,8 @@ int main(void)
     //free_malloc(racine);
 
     creerCode(racine,0,0);
+
+    compresserTexte(racine,texte,texteCompresse);
 
 
     while (1) {
