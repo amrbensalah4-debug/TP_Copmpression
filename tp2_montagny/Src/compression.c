@@ -172,7 +172,6 @@ struct noeud* getAdress(struct noeud* ptrNoeud, uint8_t caractere)
     return getAdress(ptrNoeud->droite, caractere);
 }
 
-
 void compresserTexte(struct noeud* racine, uint8_t* texte, uint8_t* texteCompresse)
 {
     uint32_t bitIndex = 0; // position du bit qu’on va écrire
@@ -188,7 +187,7 @@ void compresserTexte(struct noeud* racine, uint8_t* texte, uint8_t* texteCompres
 
             // Calcule où écrire ce bit
             uint32_t byteIndex = bitIndex / 8; // quel octet
-            uint8_t bitPos = 7 - (bitIndex % 8); // position dans cet octet
+            uint8_t bitPos = 7 - (bitIndex % 8); // position dans cet octet (7 à 0, de gauche à droite)
 
             if (bit == 1)
                 texteCompresse[byteIndex] |= (1 << bitPos); // met le bit à 1
@@ -196,13 +195,8 @@ void compresserTexte(struct noeud* racine, uint8_t* texte, uint8_t* texteCompres
                 texteCompresse[byteIndex] &= ~(1 << bitPos); // met le bit à 0
 
             bitIndex++;
-
-
-
         }
     }
-
-    printf("\r\nTexte compressé terminé (%lu bits)\r\n", bitIndex);
 
     printf("\r\nTexte compressé (%lu bits) : ", bitIndex);
 
@@ -216,4 +210,20 @@ void compresserTexte(struct noeud* racine, uint8_t* texte, uint8_t* texteCompres
 }
 
 
+void creerEntete(struct noeud* arbre[256], uint32_t nbFeuilles,
+                 uint32_t tailleFichier, uint32_t tailleTexte)
+{
+    printf("---- Entête Huffman ----\r\n");
 
+    // Informations générales
+    printf("Taille entete : %lu octets\r\n", (nbFeuilles * 6) + 6);
+    printf("Taille fichier compressé : %lu octets\r\n", tailleFichier);
+    printf("Taille texte original : %lu octets\r\n", tailleTexte);
+
+    // Informations pour chaque caractère
+    for (uint32_t i = 0; i < nbFeuilles; i++){
+        printf("Caractère '%c' -> code : ", arbre[i]->c);
+        afficherBinaire(arbre[i]->code, arbre[i]->tailleCode);
+        printf(" (taille : %lu bits)\r\n", arbre[i]->tailleCode);
+    }
+}
