@@ -196,12 +196,14 @@ void compresserTexte(struct noeud* racine, uint8_t* texte, uint8_t* texteCompres
                 texteCompresse[byteIndex] &= ~(1 << bitPos); // met le bit à 0
 
             bitIndex++;
+
+
+
         }
     }
 
     printf("\r\nTexte compressé terminé (%lu bits)\r\n", bitIndex);
 
-    // --- AFFICHAGE DU RESULTAT EN BINAIRE ---
     printf("\r\nTexte compressé (%lu bits) : ", bitIndex);
 
     for (uint32_t i = 0; i < bitIndex; i++) {
