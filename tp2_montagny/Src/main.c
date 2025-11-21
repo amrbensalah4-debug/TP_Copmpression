@@ -11,7 +11,6 @@
 
 
 
-//Test totot tzatatz gfd
 int main(void)
 {
     FPU_Init();
@@ -19,56 +18,52 @@ int main(void)
     USART2_Init();
     SYSTICK_Init();
 
-    //uint8_t texte[] = "aaaabbbccd";
-    //uint32_t tab[256];
-    //uint8_t texteCompresse[256] = {0};
+//    uint8_t texte[] = "aaaabbbccd";
+//        uint32_t tab[256];
+//        struct noeud* arbre[256];
+//
+//        // 1️⃣ Compter les occurrences
+//        occurrence(texte, tab);
+//
+//        // 2️⃣ Créer les feuilles
+//        uint32_t nbFeuilles = creerFeuille(arbre, tab);
+//
+//        // 3️⃣ Trier par occurrences
+//        triArbre(arbre, nbFeuilles);
+//
+//        // 4️⃣ Créer l’arbre Huffman
+//        struct noeud* racine = creerArbreHuffman(arbre, nbFeuilles);
+//
+//        // 5️⃣ Créer les codes Huffman
+//        creerCode(racine, 0, 0);
+//
+//        // 6️⃣ Tester creerEntete
+//        uint32_t tailleTexte = strlen((char*)texte);
+//        uint32_t tailleFichier = 3; // valeur fictive pour l’instant
+//
+//        printf("\r\n---- Entête Huffman ----\r\n");
+//        printf("Taille fichier compressé : %lu octets\r\n", tailleFichier);
+//        printf("Taille texte original : %lu octets\r\n", tailleTexte);
+//
+//        creerEntete(racine, tailleFichier, tailleTexte);
 
-    //occurrence(texte, tab);
-    //afficheOccurence(texte,tab);
+    char msg[] = "Test UART2 boucle OK\r\n";
 
-    //struct noeud* arbre[256];
-    //uint32_t nbFeuilles = creerFeuille(arbre, tab);
-
-    //uint32_t taille = creerFeuille(arbre, tab);
-    //triArbre(arbre,taille);
-    //afficherTabArbreHuffman(arbre, taille);
-
-    //printf("\r\n Arbre triée \r\n");
-    //afficherArbreTrier(arbre, taille);
-
-    //printf("\r\n Test creation arbre Huffman \r\n");
-    //struct noeud* racine = creerArbreHuffman(arbre, taille);
-    //printf("Racine : '%c' -> %lu occurrences\r\n",
-    //      racine->c, racine->occurrence);
-
-	//parcourirArbre(racine);
-    //free_malloc(racine);
-
-    //creerCode(racine,0,0);
-
-    //compresserTexte(racine,texte,texteCompresse);
-
-    uint8_t texte[] = "aaaabbbccd";
-    uint32_t tab[256];
-    struct noeud* arbre[256];
-
-    occurrence(texte, tab);
-    uint32_t nbFeuilles = creerFeuille(arbre, tab);
-    triArbre(arbre, nbFeuilles);
-    struct noeud* racine = creerArbreHuffman(arbre, nbFeuilles);
-
-    // ⚠️ Ajoute cette ligne avant creerEntete :
-    creerCode(racine, 0, 0);
-
-    // Ensuite seulement :
-    printf("\r\n---- Test fonction creerEntete ----\r\n");
-    uint32_t tailleTexte = strlen((char*)texte);
-    uint32_t tailleFichier = 3; // valeur approximative
-    creerEntete(arbre, nbFeuilles, tailleFichier, tailleTexte);
 
     while (1) {
-        SYSTICK_Delay(100);
-        GPIOA->ODR ^= (1<<5);
+        //SYSTICK_Delay(100);
+        //GPIOA->ODR ^= (1<<5);
         //printf("Hello \r\n");
+    	for (int i = 0; msg[i] != '\0'; i++) {
+    	            USART2_TransmitChar(msg[i]);
+    	        }
+
+    	        // Lecture immédiate sur RX2 (car TX2 et RX2 sont reliés)
+    	        if (USART2_ReceiveChar() != 0) {
+    	            uint8_t c = USART2_ReceiveChar();
+    	            USART2_TransmitChar(c); // renvoie ce qu’il lit
+    	        }
+
+    	        SYSTICK_Delay(1000);
     }
 }

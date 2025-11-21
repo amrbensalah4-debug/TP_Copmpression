@@ -210,20 +210,21 @@ void compresserTexte(struct noeud* racine, uint8_t* texte, uint8_t* texteCompres
 }
 
 
-void creerEntete(struct noeud* arbre[256], uint32_t nbFeuilles,
-                 uint32_t tailleFichier, uint32_t tailleTexte)
+void creerEntete(struct noeud* ptrNoeud,uint32_t tailleFichier, uint32_t tailleTexte)
 {
-    printf("---- Entête Huffman ----\r\n");
+    if (ptrNoeud == NULL) return;
 
-    // Informations générales
-    printf("Taille entete : %lu octets\r\n", (nbFeuilles * 6) + 6);
-    printf("Taille fichier compressé : %lu octets\r\n", tailleFichier);
-    printf("Taille texte original : %lu octets\r\n", tailleTexte);
-
-    // Informations pour chaque caractère
-    for (uint32_t i = 0; i < nbFeuilles; i++){
-        printf("Caractère '%c' -> code : ", arbre[i]->c);
-        afficherBinaire(arbre[i]->code, arbre[i]->tailleCode);
-        printf(" (taille : %lu bits)\r\n", arbre[i]->tailleCode);
+    // Si c’est une feuille
+    if (ptrNoeud->gauche == NULL && ptrNoeud->droite == NULL) {
+        printf("Caractère '%c' -> code : ", ptrNoeud->c);
+        afficherBinaire(ptrNoeud->code, ptrNoeud->tailleCode);
+        printf(" (taille : %lu bits)\r\n", ptrNoeud->tailleCode);
+        return;
     }
+
+    // Sinon, on parcourt les deux branches
+    creerEntete(ptrNoeud->gauche, tailleFichier, tailleTexte);
+    creerEntete(ptrNoeud->droite, tailleFichier, tailleTexte);
 }
+
+

@@ -26,7 +26,7 @@ void creerCode(struct noeud* ptrNoeud, uint32_t code, uint32_t taille);
 void afficherBinaire(uint32_t code, uint32_t taille);
 struct noeud* getAdress(struct noeud* ptrNoeud, uint8_t caractere);
 void compresserTexte(struct noeud* racine, uint8_t* texte, uint8_t* texteCompresse);
-void creerEntete(struct noeud* arbre[256], uint32_t nbFeuilles,
-                 uint32_t tailleFichier, uint32_t tailleTexte);
+void creerEntete(struct noeud* racine, uint32_t tailleFichier, uint32_t tailleTexte);
+
 
 #endif
