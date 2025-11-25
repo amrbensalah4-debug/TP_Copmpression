@@ -33,6 +33,9 @@ int main(void)
     // Compter les occurrences
     occurrence(texte, tab);
 
+    afficheOccurence(texte, tab);
+    printf("\n");
+
     // Créer les feuilles
     uint32_t nbFeuilles = creerFeuille(arbre, tab);
 
@@ -43,11 +46,17 @@ int main(void)
 
     struct noeud* racine = creerArbreHuffman(arbre, nbFeuilles);
 
+    parcourirArbre(racine);
+    printf("\n");
+
     //  Générer les codes Huffman
     creerCode(racine, 0, 0);
+    printf("\n");
 
     //  Compresser le texte
     compresserTexte(racine, texte, texteCompresse);
+    printf("\n");
+
 
 /*
     uint32_t tailleTexte = strlen((char*)texte);

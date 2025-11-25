@@ -124,7 +124,7 @@ void parcourirArbre(struct noeud* ptrNoeud) {
     if (!ptrNoeud->gauche && !ptrNoeud->droite)
         printf("Feuille '%c' -> %lu occurrences\r\n", ptrNoeud->c, ptrNoeud->occurrence);
     else {
-        printf("Noeud interne -> %lu occurrences\r\n", ptrNoeud->occurrence);
+        printf("! -> %lu occurrences\r\n", ptrNoeud->occurrence);
         parcourirArbre(ptrNoeud->gauche);
         parcourirArbre(ptrNoeud->droite);
     }
