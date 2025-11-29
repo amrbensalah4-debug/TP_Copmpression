@@ -10,6 +10,8 @@
 #include "occurence.h"
 #include "arbre.h"
 #include "code.h"
+#include "entete.h"
+
 
 
 
@@ -27,6 +29,8 @@ int main(void)
     uint32_t tab[256];                // Tableau d’occurrences
     struct noeud* arbre[256];         // Tableau de pointeurs vers les nœuds
     uint8_t texteCompresse[256] = {0}; // tableau de texte compressé
+    uint32_t tailleTexte = strlen((char*)texte);
+    uint32_t tailleFichier = 3; // ou calcule réel plus tard
 
     /* =====  compression Huffman ===== */
 
@@ -56,6 +60,10 @@ int main(void)
     //  Compresser le texte
     compresserTexte(racine, texte, texteCompresse);
     printf("\n");
+
+    creerEntete(arbre, nbFeuilles, tailleFichier, tailleTexte);
+    printf("\n");
+
 
 
 /*

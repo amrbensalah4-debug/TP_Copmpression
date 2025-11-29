@@ -37,20 +37,4 @@ void afficheOccurence(uint8_t *chaine, uint32_t tab[256]) {
     }
 }
 
-/*
-void creerEntete(struct noeud* ptrNoeud, uint32_t tailleFichier, uint32_t tailleTexte) {
-    if (ptrNoeud == NULL) return;
 
-    // Si c’est une feuille → on affiche son code Huffman
-    if (ptrNoeud->gauche == NULL && ptrNoeud->droite == NULL) {
-        printf("Caractère '%c' -> code : ", ptrNoeud->c);
-        afficherBinaire(ptrNoeud->code, ptrNoeud->tailleCode);
-        printf(" (taille : %lu bits)\r\n", ptrNoeud->tailleCode);
-        return;
-    }
-
-    // Sinon, on parcourt récursivement la branche gauche et droite
-    creerEntete(ptrNoeud->gauche, tailleFichier, tailleTexte);
-    creerEntete(ptrNoeud->droite, tailleFichier, tailleTexte);
-}
-*/

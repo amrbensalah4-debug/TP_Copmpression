@@ -16,6 +16,4 @@ typedef struct noeud {
 // Prototypes
 void occurrence(uint8_t *chaine, uint32_t tab[256]);
 void afficheOccurence(uint8_t *chaine, uint32_t tab[256]);
-void creerEntete(struct noeud* racine, uint32_t tailleFichier, uint32_t tailleTexte);
-
 #endif
